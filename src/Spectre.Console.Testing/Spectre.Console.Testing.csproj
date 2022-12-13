@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0;net8.0;netstandard2.0</TargetFrameworks>
     <IsTestProject>false</IsTestProject>
-    <IsPackable>true</IsPackable>
+    <IsPackable>false</IsPackable>
     <Description>Contains testing utilities for Spectre.Console.</Description>
   </PropertyGroup>
 
