@@ -95,34 +95,34 @@ Task("Test")
 });
 
 Task("Package")
-    .IsDependentOn("Test")
+    //.IsDependentOn("Test")
     .Does(context => 
 {
     context.DotNetPack($"./src/Spectre.Console.sln", new DotNetPackSettings {
         Configuration = configuration,
         Verbosity = DotNetVerbosity.Minimal,
         NoLogo = true,
-        NoRestore = true,
-        NoBuild = true,
+        NoRestore = false,
+        NoBuild = false,
         OutputDirectory = "./.artifacts",
         MSBuildSettings = new DotNetMSBuildSettings()
             .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
     });
 
-    context.DotNetPack($"./src/Spectre.Console.Analyzer.sln", new DotNetPackSettings {
-        Configuration = configuration,
-        Verbosity = DotNetVerbosity.Minimal,
-        NoLogo = true,
-        NoRestore = true,
-        NoBuild = true,
-        OutputDirectory = "./.artifacts",
-        MSBuildSettings = new DotNetMSBuildSettings()
-            .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
-    });
+    // context.DotNetPack($"./src/Spectre.Console.Analyzer.sln", new DotNetPackSettings {
+    //     Configuration = configuration,
+    //     Verbosity = DotNetVerbosity.Minimal,
+    //     NoLogo = true,
+    //     NoRestore = true,
+    //     NoBuild = true,
+    //     OutputDirectory = "./.artifacts",
+    //     MSBuildSettings = new DotNetMSBuildSettings()
+    //         .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
+    // });
 });
 
 Task("Publish-NuGet")
-    .WithCriteria(ctx => BuildSystem.IsRunningOnGitHubActions, "Not running on GitHub Actions")
+    //.WithCriteria(ctx => BuildSystem.IsRunningOnGitHubActions, "Not running on GitHub Actions")
     .IsDependentOn("Package")
     .Does(context => 
 {
@@ -132,13 +132,14 @@ Task("Publish-NuGet")
     }
 
     // Publish to GitHub Packages
-    foreach(var file in context.GetFiles("./.artifacts/*.nupkg")) 
+    foreach(var file in context.GetFiles("./.artifacts/*.NS.*.nupkg")) 
     {
         context.Information("Publishing {0}...", file.GetFilename().FullPath);
         DotNetNuGetPush(file.FullPath, new DotNetNuGetPushSettings
         {
             Source = "https://api.nuget.org/v3/index.json",
             ApiKey = apiKey,
+            SkipDuplicate = true
         });
     }
 });
