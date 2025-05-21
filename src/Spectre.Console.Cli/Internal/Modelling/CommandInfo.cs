@@ -48,10 +48,10 @@ internal sealed class CommandInfo : ICommandContainer, ICommandInfo
 
         if (CommandType != null && string.IsNullOrWhiteSpace(Description))
         {
-            var description = CommandType.GetCustomAttribute<DescriptionAttribute>();
+            var description = CommandType.LocalizedDescription();
             if (description != null)
             {
-                Description = description.Description;
+                Description = description;
             }
         }
     }

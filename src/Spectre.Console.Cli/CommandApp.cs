@@ -85,7 +85,7 @@ public sealed class CommandApp : ICommandApp
             }
 
             return await _executor
-                .Execute(_configurator, args)
+                .ExecuteAsync(_configurator, args)
                 .ConfigureAwait(false);
         }
         catch (Exception ex)

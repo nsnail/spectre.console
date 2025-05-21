@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <IsPackable>true</IsPackable>
+    <PackageId>NetAdmin.Spectre.Console.ImageSharp</PackageId>
     <Description>A library that extends Spectre.Console with ImageSharp superpowers.</Description>
   </PropertyGroup>
   <PropertyGroup>

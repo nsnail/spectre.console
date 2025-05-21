@@ -9,7 +9,7 @@ internal sealed class DelegateCommand : ICommand
         _func = func;
     }
 
-    public Task<int> Execute(CommandContext context, CommandSettings settings)
+    public Task<int> ExecuteAsync(CommandContext context, CommandSettings settings)
     {
         return _func(context, settings);
     }

@@ -13,5 +13,5 @@ public interface ICommand<TSettings> : ICommandLimiter<TSettings>
     /// <param name="context">The command context.</param>
     /// <param name="settings">The settings.</param>
     /// <returns>An integer indicating whether or not the command executed successfully.</returns>
-    Task<int> Execute(CommandContext context, TSettings settings);
+    Task<int> ExecuteAsync(CommandContext context, TSettings settings);
 }

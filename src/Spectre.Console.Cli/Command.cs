@@ -14,13 +14,13 @@ public abstract class Command : ICommand<EmptyCommandSettings>
     public abstract int Execute(CommandContext context);
 
     /// <inheritdoc/>
-    Task<int> ICommand<EmptyCommandSettings>.Execute(CommandContext context, EmptyCommandSettings settings)
+    Task<int> ICommand<EmptyCommandSettings>.ExecuteAsync(CommandContext context, EmptyCommandSettings settings)
     {
         return Task.FromResult(Execute(context));
     }
 
     /// <inheritdoc/>
-    Task<int> ICommand.Execute(CommandContext context, CommandSettings settings)
+    Task<int> ICommand.ExecuteAsync(CommandContext context, CommandSettings settings)
     {
         return Task.FromResult(Execute(context));
     }

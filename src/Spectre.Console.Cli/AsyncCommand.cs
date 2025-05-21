@@ -13,13 +13,13 @@ public abstract class AsyncCommand : ICommand<EmptyCommandSettings>
     public abstract Task<int> ExecuteAsync(CommandContext context);
 
     /// <inheritdoc/>
-    Task<int> ICommand<EmptyCommandSettings>.Execute(CommandContext context, EmptyCommandSettings settings)
+    Task<int> ICommand<EmptyCommandSettings>.ExecuteAsync(CommandContext context, EmptyCommandSettings settings)
     {
         return ExecuteAsync(context);
     }
 
     /// <inheritdoc/>
-    Task<int> ICommand.Execute(CommandContext context, CommandSettings settings)
+    Task<int> ICommand.ExecuteAsync(CommandContext context, CommandSettings settings)
     {
         return ExecuteAsync(context);
     }

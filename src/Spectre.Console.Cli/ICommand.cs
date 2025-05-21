@@ -19,5 +19,5 @@ public interface ICommand
     /// <param name="context">The command context.</param>
     /// <param name="settings">The settings.</param>
     /// <returns>The validation result.</returns>
-    Task<int> Execute(CommandContext context, CommandSettings settings);
+    Task<int> ExecuteAsync(CommandContext context, CommandSettings settings);
 }

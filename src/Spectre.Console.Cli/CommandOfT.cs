@@ -34,14 +34,14 @@ public abstract class Command<TSettings> : ICommand<TSettings>
     }
 
     /// <inheritdoc/>
-    Task<int> ICommand.Execute(CommandContext context, CommandSettings settings)
+    Task<int> ICommand.ExecuteAsync(CommandContext context, CommandSettings settings)
     {
         Debug.Assert(settings is TSettings, "Command settings is of unexpected type.");
         return Task.FromResult(Execute(context, (TSettings)settings));
     }
 
     /// <inheritdoc/>
-    Task<int> ICommand<TSettings>.Execute(CommandContext context, TSettings settings)
+    Task<int> ICommand<TSettings>.ExecuteAsync(CommandContext context, TSettings settings)
     {
         return Task.FromResult(Execute(context, settings));
     }
