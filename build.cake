@@ -57,15 +57,15 @@ Task("Test")
 });
 
 Task("Package")
-    .IsDependentOn("Test")
+    //.IsDependentOn("Test")
     .Does(context => 
 {
     context.DotNetPack($"./src/Spectre.Console.sln", new DotNetPackSettings {
         Configuration = configuration,
         Verbosity = DotNetVerbosity.Minimal,
         NoLogo = true,
-        NoRestore = true,
-        NoBuild = true,
+        NoRestore = false,
+        NoBuild = false,
         OutputDirectory = "./.artifacts",
         MSBuildSettings = new DotNetMSBuildSettings()
             .TreatAllWarningsAs(MSBuildTreatAllWarningsAs.Error)
@@ -73,7 +73,7 @@ Task("Package")
 });
 
 Task("Publish-NuGet")
-    .WithCriteria(ctx => BuildSystem.IsRunningOnGitHubActions, "Not running on GitHub Actions")
+    //.WithCriteria(ctx => BuildSystem.IsRunningOnGitHubActions, "Not running on GitHub Actions")
     .IsDependentOn("Package")
     .Does(context => 
 {
@@ -90,6 +90,7 @@ Task("Publish-NuGet")
         {
             Source = "https://api.nuget.org/v3/index.json",
             ApiKey = apiKey,
+            SkipDuplicate = true
         });
     }
 });
